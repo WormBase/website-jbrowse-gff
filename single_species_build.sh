@@ -59,6 +59,7 @@ CONFPATH=/website-genome-browsers/jbrowse/conf/c_elegans.jbrowse.conf
 LOGFILE=$SPECIES
 LOGFILE+=".log"
 
+#this is by far the longest running portion of the script (typically a few hours)
 $MAKEPATH --conf $CONFPATH --quiet --species $SPECIES 2>1 | grep -v "Deep recursion"; mv 1 $LOGFILE
 
 INLINEINCLUDEPATH=/website-genome-browsers/jbrowse/bin/inline_includes.pl
@@ -73,6 +74,8 @@ cp $SPECIES/trackList.json.new $SPECIES/trackList.json
 
 UPLOADTOS3PATH=/agr_jbrowse_config/scripts/upload_to_S3.pl
 
+# this path will need to be fixed for "real" releases. Something like:
+#  REMOTEPATH="MOD-jbrowses/WormBase/WS$RELEASE/$SPECIES"
 REMOTEPATH="test/WS$RELEASE/$SPECIES"
 
 $UPLOADTOS3PATH --bucket $AWSBUCKET --local "$SPECIES/" --remote $REMOTEPATH --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET
