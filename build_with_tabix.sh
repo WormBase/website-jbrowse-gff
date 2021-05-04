@@ -58,7 +58,7 @@ echo $PATH
 wget ftp://ftp.wormbase.org/pub/wormbase/releases/WS280/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS280.annotations.gff3.gz
 gzip -d c_elegans.PRJNA13758.WS280.annotations.gff3.gz
 
-gt gff3 -tidy -sortlines -retainids c_elegans.PRJNA13758.WS280.annotations.gff3 > worm.gff
+gt gff3 -sortlines -retainids c_elegans.PRJNA13758.WS280.annotations.gff3 > worm.gff
 
 bzgip worm.gff
 tabix worm.gff.gz
