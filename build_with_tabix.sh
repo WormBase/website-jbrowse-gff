@@ -61,7 +61,7 @@ echo $PATH
 wget http://sgd-archive.yeastgenome.org/sequence/S288C_reference/genome_releases/S288C_reference_genome_R64-3-1_20210421.tgz
 tar zxvf  S288C_reference_genome_R64-3-1_20210421.tgz
 gzip -d S288C_reference_genome_R64-3-1_20210421/saccharomyces_cerevisiae_R64-3-1_20210421.gff.gz 
-cp S288C_reference_genome_R64-3-1_20210421/saccharomyces_cerevisiae_R64-3-1_20210421.gff yeast.gff
+head -n `grep -n "##FASTA" S288C_reference_genome_R64-3-1_20210421/saccharomyces_cerevisiae_R64-3-1_20210421.gff | cut -d: -f1` S288C_reference_genome_R64-3-1_20210421/saccharomyces_cerevisiae_R64-3-1_20210421.gff > yeast.gff
 perl -pi -e 's/\t\.\t0\t\./\t.\t.\t./' yeast.gff
 
 
