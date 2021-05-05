@@ -68,8 +68,8 @@ perl -pi -e 's/\t\.\t0\t\./\t.\t.\t./' yeast.gff
 
 gt gff3 -tidy -sortlines -retainids yeast.gff > yeast.tidy.gff 
 
-bzgip yeast.tidy.gff
-tabix yeast.tidy.gff.gz
+/usr/bin/bzgip yeast.tidy.gff
+/usr/bin/tabix yeast.tidy.gff.gz
 
 aws s3 cp --acl public-read yeast.tidy.gff.gz s3://agrjbrowse/test/yeast/yeast.tidy.gff.gz
 aws s3 cp --acl public-read yeast.tidy.gff.gz.tbi s3://agrjbrowse/test/yeast.tidy.gff.gz.tbi
