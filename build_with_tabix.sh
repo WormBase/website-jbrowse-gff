@@ -55,16 +55,24 @@ fi
 
 echo $PATH
 
-wget ftp://ftp.wormbase.org/pub/wormbase/releases/WS280/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS280.annotations.gff3.gz
-gzip -d c_elegans.PRJNA13758.WS280.annotations.gff3.gz
+#wget ftp://ftp.wormbase.org/pub/wormbase/releases/WS280/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS280.annotations.gff3.gz
+#gzip -d c_elegans.PRJNA13758.WS280.annotations.gff3.gz
 
-gt gff3 -sortlines -retainids c_elegans.PRJNA13758.WS280.annotations.gff3 > worm.gff
+wget http://sgd-archive.yeastgenome.org/sequence/S288C_reference/genome_releases/S288C_reference_genome_R64-3-1_20210421.tgz
+tar zxvf  S288C_reference_genome_R64-3-1_20210421.tgz
+gzip -d S288C_reference_genome_R64-3-1_20210421/saccharomyces_cerevisiae_R64-3-1_20210421.gff.gz 
+cp S288C_reference_genome_R64-3-1_20210421/saccharomyces_cerevisiae_R64-3-1_20210421.gff yeast.gff
+perl -pi -e 's/\t\.\t0\t\./\t.\t.\t./' yeast.gff
 
-bzgip worm.gff
-tabix worm.gff.gz
 
-aws s3 cp --acl public-read worm.gff.gz s3://agrjbrowse/test/WS280/c_elegans_PRJNA13758/worm.gff.gz
-aws s3 cp --acl public-read worm.gff.gz.tbi s3://agrjbrowse/test/WS280/c_elegans_PRJNA13758/worm.gff.gz.tbi
+
+gt gff3 -tidy -sortlines -retainids yeast.gff > yeast.tidy.gff 
+
+bzgip yeast.tidy.gff
+tabix yeast.tidy.gff.gz
+
+aws s3 cp --acl public-read yeast.tidy.gff.gz s3://agrjbrowse/test/yeast/yeast.tidy.gff.gz
+aws s3 cp --acl public-read yeast.tidy.gff.gz.tbi s3://agrjbrowse/test/yeast.tidy.gff.gz.tbi
 
  
 
