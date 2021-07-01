@@ -69,7 +69,7 @@ DATADIR=/jbrowse/data
 cd $DATADIR
 
 cp $SPECIES/trackList.json $SPECIES/trackList.json.orig
-$INLINEINCLUDEPATH --bio $SPECIES --rel "WS$RELEASE" --file $SPECIES/trackList.json > $SPECIES/trackList.json.new
+$INLINEINCLUDEPATH --bio $SPECIES --rel "$RELEASE" --file $SPECIES/trackList.json > $SPECIES/trackList.json.new
 cp $SPECIES/trackList.json.new $SPECIES/trackList.json
 
 UPLOADTOS3PATH=/agr_jbrowse_config/scripts/upload_to_S3.pl
