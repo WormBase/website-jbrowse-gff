@@ -9,6 +9,7 @@
 #                -e "WB_SPECIES=c_nigoni_PRJNA384657" \
 #                -e "AWS_ACCESS_KEY=<access_key>" \
 #                -e "AWS_SECRET_KEY=<secret key>" \
+#                -e "UPDATE_ONLY=1" \
 #                 test-wb-gff
 
 # The script "single_species_build.sh" is currently hard coded to do the
