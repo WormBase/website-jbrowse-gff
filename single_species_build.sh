@@ -52,14 +52,14 @@ then
     fi
 fi
 
-if [ -z "$UPDATE_ONLY" ]
-then
-    SKIPFLATFILE=" --skipflatfile "
-    ONLYTRACKLIST=" --onlytracklist "
-else
-    SLIPFLATFILE=" "
-    ONLYTRACKLIST=" "
-fi
+#if [ -z "$UPDATE_ONLY" ]
+#then
+#    SKIPFLATFILE=" --skipflatfile "
+#    ONLYTRACKLIST=" --onlytracklist "
+#else
+#    SLIPFLATFILE=" "
+#    ONLYTRACKLIST=" "
+#fi
 
 MAKEPATH=/website-genome-browsers/jbrowse/bin/make_jbrowse.pl
 
@@ -69,7 +69,8 @@ LOGFILE=$SPECIES
 LOGFILE+=".log"
 
 #this is by far the longest running portion of the script (typically a few hours)
-$MAKEPATH $SKIPFLATFILE --conf $CONFPATH --quiet --species $SPECIES 2>1 | grep -v "Deep recursion"; mv 1 $LOGFILE
+#$MAKEPATH $SKIPFLATFILE --conf $CONFPATH --quiet --species $SPECIES 2>1 | grep -v "Deep recursion"; mv 1 $LOGFILE
+$MAKEPATH --conf $CONFPATH --quiet --species $SPECIES 2>1 | grep -v "Deep recursion"; mv 1 $LOGFILE
 
 INLINEINCLUDEPATH=/website-genome-browsers/jbrowse/bin/inline_includes.pl
 
@@ -87,7 +88,8 @@ UPLOADTOS3PATH=/agr_jbrowse_config/scripts/upload_to_S3.pl
 REMOTEPATH="MOD-jbrowses/WormBase/WS$RELEASE/$SPECIES"
 #REMOTEPATH="test/WS$RELEASE/$SPECIES"
 
-$UPLOADTOS3PATH $ONLYTRACKLIST --bucket $AWSBUCKET --local "$SPECIES/" --remote $REMOTEPATH --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET
+#$UPLOADTOS3PATH $ONLYTRACKLIST --bucket $AWSBUCKET --local "$SPECIES/" --remote $REMOTEPATH --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET
+$UPLOADTOS3PATH --bucket $AWSBUCKET --local "$SPECIES/" --remote $REMOTEPATH --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET
  
 
 
