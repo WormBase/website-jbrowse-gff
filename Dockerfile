@@ -32,6 +32,7 @@ RUN git clone --single-branch --branch jbrowse-282 https://github.com/WormBase/w
 RUN git clone --single-branch --branch master https://github.com/alliance-genome/agr_jbrowse_config.git
 
 RUN cp  /website-jbrowse-gff/single_species_build.sh / && \
+    cp  /website-jbrowse-gff/parallel.sh / && \
     cp  /website-genome-browsers/jbrowse/conf/log4perl.conf / && \
     mkdir -p /jbrowse/data/ && \
     cp -r /website-genome-browsers/jbrowse/jbrowse/data /jbrowse/data
@@ -40,4 +41,5 @@ RUN cp  /website-jbrowse-gff/single_species_build.sh / && \
 VOLUME /data
 #ENTRYPOINT ["/bin/sh", "/docker-wrapper.sh"]
 
-CMD ["/bin/bash", "/single_species_build.sh"]
+#CMD ["/bin/bash", "/single_species_build.sh"]
+CMD ["/bin/bash", "/parallel.sh"]
