@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+#set -e
 
 RELEASE=282
 while getopts r:s:a:k: option
@@ -25,11 +25,6 @@ done
 if [ -z "$RELEASE" ]
 then
     RELEASE=${WB_RELEASE}
-fi
-
-if [ -z "$SPECIES" ]
-then
-    SPECIES=${WB_SPECIES}
 fi
 
 if [ -z "$AWSACCESS" ]
@@ -90,11 +85,12 @@ MAKEPATH=/website-genome-browsers/jbrowse/bin/make_jbrowse.pl
 
 CONFPATH=/website-genome-browsers/jbrowse/conf/c_elegans.jbrowse.conf
 
-LOGFILE=$SPECIES
-LOGFILE+=".log"
+#LOGFILE=$SPECIES
+#LOGFILE+=".log"
 
 #this is by far the longest running portion of the script (typically a few hours)
 #$MAKEPATH $SKIPFLATFILE --conf $CONFPATH --quiet --species $SPECIES 2>1 | grep -v "Deep recursion"; mv 1 $LOGFILE
+echo "starting processing gff files"
 parallel -j 2 $MAKEPATH --conf $CONFPATH --quiet --species {} 2>1 | grep -v "Deep recursion"; mv 1 $LOGFILE ::: "${SPECIESLIST[@]}"
 
 INLINEINCLUDEPATH=/website-genome-browsers/jbrowse/bin/inline_includes.pl
