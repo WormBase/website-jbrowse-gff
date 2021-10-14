@@ -55,9 +55,44 @@ JBrowse S3 bucket (agrjbrowse).
 Building JBrowse servers
 ========================
 
+There are two servers for JBrowse instances:
+
+1. http://jbrowse_wb_dev.alliancegenome.org/tools/genome/jbrowse/ for development/staging
+
+2. http://jbrowse_wb_prod.alliancegenome.org/tools/genome/jbrowse/ for production
+
+Both the development and production servers follow the same build procedure. The
+GoCD pipeline for building the server container builds automatically when there are
+commits to the branches in website-genome-browsers are commited to. For
+development/staging, the jbrowse_staging branch is watched, and for production, it
+watches jbrowse_production.
+
+To create a staging version:
+
+1. Create a `jbrowse-$RELEASE` branch of the website-genome-browsers repo off of the
+`jbrowse_staging` branch.
+
+2. Edit the Dockerfile at /website-genome-browsers/jbrowse/Dockerfile in that branch
+to update the `ARG RELEASE=` line to update the release version,
+
+3. Push this change to the `jbrowse-$RELEASE` github branch. At this point, local test
+versions of the server can be created from the Dockerfile.
+
+4. To update the staging server, merge these changes into the `jbrowse_staging` branch
+which will cause GoCD to rerun the `JBrowseWBDev` pipeline, which rebuilds the server
+container, then the `JBrowseWBDevServer` pipeline which moves the container onto the
+server machine and starts it, and then finally runs the `NginxJBrowse` pipeline to
+restart the proxy nginx server to point at the new server container. This rebuild
+process can take up to 15 minutes. Note that the final step of restarting the nginx
+proxy must be manually triggered in the GoCD website.
+
 Building the production server
 ------------------------------
 
+To create a production version merge the changes in the `jbrowse_staging` branch into
+the `jbrowse_production` branch, which will cause GoCD to rebuild the server container
+similarly to step four above, execpt that it runs the `JBrowseWBProd` and
+`JBrowseWBProdServer` pipelines.
 
 Older docs for previous procedure
 =================================
