@@ -64,8 +64,8 @@ There are two servers for JBrowse instances:
 Both the development and production servers follow the same build procedure. The
 GoCD pipeline for building the server container builds automatically when there are
 commits to the branches in website-genome-browsers are commited to. For
-development/staging, the jbrowse_staging branch is watched, and for production, it
-watches jbrowse_production.
+development/staging, the `jbrowse_staging` branch is watched, and for production, it
+watches `jbrowse_production`.
 
 To create a staging version:
 
