@@ -1,5 +1,27 @@
 website-jbrowse-gff
+
 Dockerfile for processing GFF data for JBrowse
+
+This README encompasses not only what is contained in this repo but also documents how
+it fits in with the Alliance of Genome Resources data and server pipelines, as well as
+the the data processing and JBrowse server tools in the `website-genome-browsers` repo
+in the `jbrowse-*` branches.
+
+Overview
+========
+
+Workflow
+========
+
+Building JBrowse servers
+========================
+
+Building the production server
+------------------------------
+
+
+Older docs for previous procedure
+=================================
 
 Note that for the upload command to work, the AWS access key and the AWS
 secret key must be args in the docker run command as environment vaiables,
