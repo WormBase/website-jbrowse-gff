@@ -26,7 +26,7 @@ Workflow
 When starting a new release, a release-specific branch is created from the 
 `jbrowse-staging` branch, typically called `jbrowse-$RELEASE`. Usually, the only
 change that needs to be made for a release is to bump the `RELEASE=` line in
-/website-genome-browsers/jbrowse/Dockerfile`. Once the release number has been
+`/website-genome-browsers/jbrowse/Dockerfile`. Once the release number has been
 pushed into the release specific repo in website-genome-browser, two changes
 need to be made in this repo:
 
@@ -36,10 +36,10 @@ website-genome-browsers in the line
 RUN git clone --single-branch --branch jbrowse-282 https://github.com/WormBase/website-genome-browsers.git
 ```
 
-2. The line RELEASE=282 in parallel.sh should be updated the the current release.
+2. The line `RELEASE=282` in parallel.sh should be updated the the current release.
 
 Note that both of these items could potentially be parameterized and passed in when
-running though Ansible using the $MOD_RELEASE_VERSION environment variable in the
+running though Ansible using the `$MOD_RELEASE_VERSION` environment variable in the
 agr_ansible_devops WormBase specific environment
 (https://github.com/alliance-genome/agr_ansible_devops/blob/master/environments/jbrowse/wb.yml),
 but this hasn't been hooked up yet.
