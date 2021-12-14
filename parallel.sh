@@ -91,7 +91,7 @@ CONFPATH=/website-genome-browsers/jbrowse/conf/c_elegans.jbrowse.conf
 #this is by far the longest running portion of the script (typically a few hours)
 #$MAKEPATH $SKIPFLATFILE --conf $CONFPATH --quiet --species $SPECIES 2>1 | grep -v "Deep recursion"; mv 1 $LOGFILE
 echo "starting processing gff files"
-parallel -j "95%" $MAKEPATH --quiet --conf $CONFPATH  --species {} ::: "${SPECIESLIST[@]}"
+parallel -j "95%" $MAKEPATH --release $RELEASE --quiet --conf $CONFPATH  --species {} ::: "${SPECIESLIST[@]}"
 
 INLINEINCLUDEPATH=/website-genome-browsers/jbrowse/bin/inline_includes.pl
 
