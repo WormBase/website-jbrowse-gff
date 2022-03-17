@@ -48,10 +48,10 @@ then
 fi
 
 SPECIESLIST=(
-'t_muris_PRJEB126'
+#'t_muris_PRJEB126'
 'c_elegans_PRJNA13758'
 #'p_pacificus_PRJNA12644'
-#'c_nigoni_PRJNA384657'
+'c_nigoni_PRJNA384657'
 #'b_malayi_PRJNA10729'
 #'c_angaria_PRJNA51225'
 #'c_remanei_PRJNA577507'
