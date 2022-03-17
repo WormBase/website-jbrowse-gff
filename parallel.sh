@@ -49,7 +49,7 @@ fi
 
 SPECIESLIST=(
 't_muris_PRJEB126'
-#'c_elegans_PRJNA13758'
+'c_elegans_PRJNA13758'
 #'p_pacificus_PRJNA12644'
 #'c_nigoni_PRJNA384657'
 #'b_malayi_PRJNA10729'
