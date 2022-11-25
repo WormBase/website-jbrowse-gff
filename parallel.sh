@@ -91,29 +91,28 @@ CONFPATH=/website-genome-browsers/jbrowse/conf/c_elegans.jbrowse.conf
 #this is by far the longest running portion of the script (typically a few hours)
 #$MAKEPATH $SKIPFLATFILE --conf $CONFPATH --quiet --species $SPECIES 2>1 | grep -v "Deep recursion"; mv 1 $LOGFILE
 echo "starting processing gff files"
-parallel -j "50%" $MAKEPATH --release $RELEASE --quiet --conf $CONFPATH  --species {} ::: "${SPECIESLIST[@]}"
+for species in "${SPECIESLIST[@]}"; do
+    $MAKEPATH --release $RELEASE --quiet --conf $CONFPATH  --species $species
 
-INLINEINCLUDEPATH=/website-genome-browsers/jbrowse/bin/inline_includes.pl
+    INLINEINCLUDEPATH=/website-genome-browsers/jbrowse/bin/inline_includes.pl
 
-DATADIR=/jbrowse/data
+    DATADIR=/jbrowse/data
 
-cd $DATADIR
+    cd $DATADIR
 
 #expand out include files
-for species in "${SPECIESLIST[@]}"; do
     cp $species/trackList.json $species/trackList.json.orig
     $INLINEINCLUDEPATH --bio $species --rel "$RELEASE" --file $species/trackList.json > $species/trackList.json.new
     cp $species/trackList.json.new $species/trackList.json
-done
 
-UPLOADTOS3PATH=/agr_jbrowse_config/scripts/upload_to_S3.pl
+    UPLOADTOS3PATH=/agr_jbrowse_config/scripts/upload_to_S3.pl
 
 # this path will need to be fixed for "real" releases. Something like:
 #REMOTEPATH="MOD-jbrowses/WormBase/WS$RELEASE/$SPECIES"
 #REMOTEPATH="test/WS$RELEASE/$SPECIES"
 
 #$UPLOADTOS3PATH $ONLYTRACKLIST --bucket $AWSBUCKET --local "$SPECIES/" --remote $REMOTEPATH --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET
-parallel -j "50%"  $UPLOADTOS3PATH --bucket $AWSBUCKET --local {1}"/" --remote "MOD-jbrowses/WormBase/WS$RELEASE/"{1} --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET ::: "${SPECIESLIST[@]}"
- 
+    $UPLOADTOS3PATH --bucket $AWSBUCKET --local {1}"/" --remote "MOD-jbrowses/WormBase/WS$RELEASE/"{1} --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET ::: "${SPECIESLIST[@]}"
+done 
 
 
