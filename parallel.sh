@@ -112,7 +112,9 @@ for species in "${SPECIESLIST[@]}"; do
 #REMOTEPATH="test/WS$RELEASE/$SPECIES"
 
 #$UPLOADTOS3PATH $ONLYTRACKLIST --bucket $AWSBUCKET --local "$SPECIES/" --remote $REMOTEPATH --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET
-    $UPLOADTOS3PATH --bucket $AWSBUCKET --local {1}"/" --remote "MOD-jbrowses/WormBase/WS$RELEASE/"{1} --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET ::: "${SPECIESLIST[@]}"
+    $UPLOADTOS3PATH --bucket $AWSBUCKET --local "$species/" --remote "MOD-jbrowses/WormBase/WS$RELEASE/$species" --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET 
+
+    rm -rf $species 
 done 
 
 
