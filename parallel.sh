@@ -2,7 +2,7 @@
 
 #set -e
 
-RELEASE=286
+RELEASE=287
 while getopts r:s:a:k: option
 do
 case "${option}"
