@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set -e
+set -e
 
 RELEASE=287
 while getopts r:s:a:k: option
@@ -48,7 +48,8 @@ then
 fi
 
 SPECIESLIST=(
-'t_muris_PRJEB126'
+#'t_muris_PRJEB126'
+'c_zanzibari_PRJEB12596'
 'c_elegans_PRJNA13758'
 'p_pacificus_PRJNA12644'
 'c_nigoni_PRJNA384657'
@@ -115,6 +116,8 @@ for species in "${SPECIESLIST[@]}"; do
     $UPLOADTOS3PATH --bucket $AWSBUCKET --local "$species/" --remote "MOD-jbrowses/WormBase/WS$RELEASE/$species" --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET 
 
     rm -rf $species 
+    ls
+    cd /
 done 
 
 
