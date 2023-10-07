@@ -28,7 +28,7 @@ LABEL maintainer="scott@scottcain.net"
 
 
 RUN git clone --single-branch --branch main https://github.com/WormBase/website-jbrowse-gff.git
-RUN git clone --single-branch --branch jbrowse-staging https://github.com/WormBase/website-genome-browsers.git
+RUN git clone --single-branch --branch jbrowse-fix-splice https://github.com/WormBase/website-genome-browsers.git
 RUN git clone --single-branch --branch master https://github.com/alliance-genome/agr_jbrowse_config.git
 
 RUN cp  /website-jbrowse-gff/single_species_build.sh / && \
