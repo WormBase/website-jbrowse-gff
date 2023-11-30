@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#set -e
+set -e
 
 RELEASE=291
 while getopts r:s:a:k: option
@@ -91,7 +91,7 @@ CONFPATH=/website-genome-browsers/jbrowse/conf/c_elegans.jbrowse.conf
 #this is by far the longest running portion of the script (typically a few hours)
 #$MAKEPATH $SKIPFLATFILE --conf $CONFPATH --quiet --species $SPECIES 2>1 | grep -v "Deep recursion"; mv 1 $LOGFILE
 echo "starting processing gff files"
-parallel -j "50%" $MAKEPATH --release $RELEASE --quiet --conf $CONFPATH  --species {} ::: "${SPECIESLIST[@]}"
+parallel -j "95%" $MAKEPATH --release $RELEASE --quiet --conf $CONFPATH  --species {} ::: "${SPECIESLIST[@]}"
 
 INLINEINCLUDEPATH=/website-genome-browsers/jbrowse/bin/inline_includes.pl
 
@@ -113,7 +113,7 @@ UPLOADTOS3PATH=/agr_jbrowse_config/scripts/upload_to_S3.pl
 #REMOTEPATH="test/WS$RELEASE/$SPECIES"
 
 #$UPLOADTOS3PATH $ONLYTRACKLIST --bucket $AWSBUCKET --local "$SPECIES/" --remote $REMOTEPATH --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET
-parallel -j "50%"  $UPLOADTOS3PATH --bucket $AWSBUCKET --local {1}"/" --remote "MOD-jbrowses/WormBase/WS$RELEASE/"{1} --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET ::: "${SPECIESLIST[@]}"
+parallel -j "95%"  $UPLOADTOS3PATH --bucket $AWSBUCKET --local {1}"/" --remote "MOD-jbrowses/WormBase/WS$RELEASE/"{1} --AWSACCESS $AWSACCESS --AWSSECRET $AWSSECRET ::: "${SPECIESLIST[@]}"
  
 
 
