@@ -10,7 +10,9 @@ in the `jbrowse-*` branches.
 # Overview
 
 The Dockerfile in this repo codes for a data processing tool that fetches GFF from
-the WormBase FTP site, processes it into JBrowse NCList json format, and deposits
+the WormBase FTP site, processes it into JBrowse NCList json format, generates
+search index files, generates "preliminary" trackList.json files for each
+assembly (indicating what data types are available for each), and deposits
 the results in the Alliance JBrowse S3 bucket. This processing is currently configured
 to run through the Alliance GoCD system and making use of the ridiculously parallelizable
 nature of processing data from many assemblies. If running on a single CPU is desired,
