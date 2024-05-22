@@ -7,8 +7,7 @@ it fits in with the Alliance of Genome Resources data and server pipelines, as w
 the the data processing and JBrowse server tools in the `website-genome-browsers` repo
 in the `jbrowse-*` branches.
 
-Overview
-========
+# Overview
 
 The Dockerfile in this repo codes for a data processing tool that fetches GFF from
 the WormBase FTP site, processes it into JBrowse NCList json format, and deposits
@@ -20,10 +19,9 @@ the `single_species` branch can be used (it is somewhat misleadingly named, as i
 Also running in the GoCD system at the Alliance are development/staging and production
 versions of JBrowse configured to make use of these data.
 
-Workflow
-========
+# Workflow
 
-When starting a new release, a release-specific branch is created from the 
+When starting a new release, a release-specific branch is created from the
 `jbrowse-staging` branch, typically called `jbrowse-$RELEASE`. Usually, the only
 change that needs to be made for a release is to bump the `RELEASE=` line in
 `/website-genome-browsers/jbrowse/Dockerfile`. Once the release number has been
@@ -31,7 +29,8 @@ pushed into the release specific repo in website-genome-browser, two changes
 need to be made in this repo:
 
 1. The Dockerfile in this repo should be updated to change the github branch of
-website-genome-browsers in the line
+   website-genome-browsers in the line
+
 ```
 RUN git clone --single-branch --branch jbrowse-282 https://github.com/WormBase/website-genome-browsers.git
 ```
@@ -50,10 +49,9 @@ run the `JBrowseProcessWB` pipeline, which will run a compute machine through An
 to process the WormBase GFF files. The script that it runs, `parallel.sh` uses
 GNU parallel to process all of the assemblies in WormBase (currently 31). After
 processing the the files, the script will upload the JBrowse data to the Alliance
-JBrowse S3 bucket (agrjbrowse).  
+JBrowse S3 bucket (agrjbrowse).
 
-Building JBrowse servers
-========================
+# Building JBrowse servers
 
 There are two servers for JBrowse instances:
 
@@ -70,32 +68,30 @@ watches `jbrowse_production`.
 To create a staging version:
 
 1. Create a `jbrowse-$RELEASE` branch of the website-genome-browsers repo off of the
-`jbrowse_staging` branch.
+   `jbrowse_staging` branch.
 
 2. Edit the Dockerfile at /website-genome-browsers/jbrowse/Dockerfile in that branch
-to update the `ARG RELEASE=` line to update the release version,
+   to update the `ARG RELEASE=` line to update the release version,
 
 3. Push this change to the `jbrowse-$RELEASE` github branch. At this point, local test
-versions of the server can be created from the Dockerfile.
+   versions of the server can be created from the Dockerfile.
 
 4. To update the staging server, merge these changes into the `jbrowse_staging` branch
-which will cause GoCD to rerun the `JBrowseWBDev` pipeline, which rebuilds the server
-container, then the `JBrowseWBDevServer` pipeline which moves the container onto the
-server machine and starts it, and then finally runs the `NginxJBrowse` pipeline to
-restart the proxy nginx server to point at the new server container. This rebuild
-process can take up to 15 minutes. Note that the final step of restarting the nginx
-proxy must be manually triggered in the GoCD website.
+   which will cause GoCD to rerun the `JBrowseWBDev` pipeline, which rebuilds the server
+   container, then the `JBrowseWBDevServer` pipeline which moves the container onto the
+   server machine and starts it, and then finally runs the `NginxJBrowse` pipeline to
+   restart the proxy nginx server to point at the new server container. This rebuild
+   process can take up to 15 minutes. Note that the final step of restarting the nginx
+   proxy must be manually triggered in the GoCD website.
 
-Building the production server
-------------------------------
+## Building the production server
 
 To create a production version merge the changes in the `jbrowse_staging` branch into
 the `jbrowse_production` branch, which will cause GoCD to rebuild the server container
 similarly to step four above, execpt that it runs the `JBrowseWBProd` and
 `JBrowseWBProdServer` pipelines.
 
-Older docs for previous procedure
-=================================
+# Older docs for previous procedure
 
 Note that for the upload command to work, the AWS access key and the AWS
 secret key must be args in the docker run command as environment vaiables,
@@ -117,5 +113,5 @@ next WB release) (perhaps this should be parameterized too).
 
 Also note that this image only processes GFF files into NCList json and does
 not deal with processing FASTA data (since it changes relatively infrequently,
-that is the sort of thing that ought to be done "by hand").  It also doesn't deal
+that is the sort of thing that ought to be done "by hand"). It also doesn't deal
 with any other file times like BigWig or VCF.
