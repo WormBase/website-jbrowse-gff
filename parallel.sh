@@ -2,7 +2,7 @@
 
 set -e
 
-RELEASE=292
+RELEASE=293
 while getopts r:s:a:k: option
 do
 case "${option}"
@@ -48,8 +48,8 @@ then
 fi
 
 SPECIESLIST=(
-#'t_muris_PRJEB126'
-#'c_elegans_PRJNA13758'
+'t_muris_PRJEB126'
+'c_elegans_PRJNA13758'
 'p_pacificus_PRJNA12644'
 'c_nigoni_PRJNA384657'
 'b_malayi_PRJNA10729'
