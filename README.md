@@ -57,7 +57,7 @@ processing the the files, the script will upload the JBrowse data to the Allianc
 JBrowse S3 bucket (agrjbrowse).
 
 IMPORTANT NOTE about GoCD: typically, the `JBrowseSoftwareProcessWB` and
-`JBrowseProcessWB` a paused to prevent them from accidentally running when
+`JBrowseProcessWB` are paused to prevent them from accidentally running when
 updates to this repo are commited. Be sure to unpause them when you want these
 pipelines to run.
 
