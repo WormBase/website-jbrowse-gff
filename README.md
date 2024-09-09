@@ -21,11 +21,13 @@ the `single_species` branch can be used (it is somewhat misleadingly named, as i
 # Workflow
 
 When starting a new release, a release-specific branch is created from the
-`jbrowse-staging` branch, typically called `jbrowse-$RELEASE`. Usually, the only
-change that needs to be made for a release is to bump the `RELEASE=` line in
-`/website-genome-browsers/jbrowse/Dockerfile`. Once the release number has been
-pushed into the release specific repo in website-genome-browser, two changes
-need to be made in this repo:
+`jbrowse-staging` branch, typically called `jbrowse-$RELEASE`. Usually, only
+two changes need to be made for a release: A) bump the `RELEASE=` line in
+`/website-genome-browsers/jbrowse/Dockerfile`, and B) bump the release number
+in `/website-genome-browsers/jbrowse/plugins/wormbase-glyphs/js/main.js` (look
+for "WS$REELASE" in this file to find what needs to be updated). 
+Once the release number has been pushed into the release specific repo in 
+website-genome-browser, two changes need to be made in this repo:
 
 1. The Dockerfile in this repo should be updated to change the value of the RELEASE
    ARG to the current release number:
