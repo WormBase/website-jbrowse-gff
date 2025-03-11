@@ -18,7 +18,7 @@ FROM gmod/jbrowse-gff-base:latest
 
 LABEL maintainer="scott@scottcain.net"
 
-ARG RELEASE=295
+ARG RELEASE=296
 
 RUN git clone --single-branch --branch main https://github.com/WormBase/website-jbrowse-gff.git
 RUN git clone --single-branch --branch jbrowse-$RELEASE https://github.com/WormBase/website-genome-browsers.git
